@@ -1,8 +1,8 @@
-# Text generation web UI
+# Web UI da metin oluşturma
 
-A gradio web UI for running Large Language Models like GPT-J 6B, OPT, GALACTICA, GPT-Neo, and Pygmalion.
+ GPT-J 6B, OPT, GALACTICA, GPT-Neo, and Pygmalion. Gibi Büyük Dil Modellerini çalıştırmak için gradio web kullanıcı arabirimi
 
-Its goal is to become the [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) of text generation.
+Amacı, [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) metin üretimi.
 
 [[Try it on Google Colab]](https://colab.research.google.com/github/oobabooga/AI-Notebooks/blob/main/Colab-TextGen-GPU.ipynb)
 
@@ -10,73 +10,74 @@ Its goal is to become the [AUTOMATIC1111/stable-diffusion-webui](https://github.
 |:---:|:---:|
 |![Image3](https://github.com/oobabooga/screenshots/raw/main/gpt4chan.png) | ![Image4](https://github.com/oobabooga/screenshots/raw/main/galactica.png) |
 
-## Features
+## Özellikler
 
-* Switch between different models using a dropdown menu.
-* Notebook mode that resembles OpenAI's playground.
-* Chat mode for conversation and role playing.
-* Generate nice HTML output for GPT-4chan.
-* Generate Markdown output for [GALACTICA](https://github.com/paperswithcode/galai), including LaTeX support.
-* Support for [Pygmalion](https://huggingface.co/models?search=pygmalionai/pygmalion) and custom characters in JSON or TavernAI Character Card formats ([FAQ](https://github.com/oobabooga/text-generation-webui/wiki/Pygmalion-chat-model-FAQ)).
-* Advanced chat features (send images, get audio responses with TTS).
-* Stream the text output in real time.
-* Load parameter presets from text files.
-* Load large models in 8-bit mode (see [here](https://github.com/oobabooga/text-generation-webui/issues/147#issuecomment-1456040134), [here](https://github.com/oobabooga/text-generation-webui/issues/20#issuecomment-1411650652) and [here](https://www.reddit.com/r/PygmalionAI/comments/1115gom/running_pygmalion_6b_with_8gb_of_vram/) if you are on Windows).
-* Split large models across your GPU(s), CPU, and disk.
-* CPU mode.
+* Açılır menüyü kullanarak farklı modeller arasında geçiş yapın.
+* OpenAI'nin oyun alanına benzeyen not defteri modu.
+* Konuşma ve rol oynama için sohbet modu.
+* GPT-4chan için güzel HTML çıktısı oluşturun.
+* Şunun için Markdown çıktısı oluştur:[GALACTICA](https://github.com/paperswithcode/galai),LaTeX desteği dahil.
+* Destek için [Pygmalion](https://huggingface.co/models?search=pygmalionai/pygmalion) ve JSON veya TavernAI Karakter Kartı formatlarında özel karakterler ([FAQ](https://github.com/oobabooga/text-generation-webui/wiki/Pygmalion-chat-model-FAQ)).
+* Gelişmiş sohbet özellikleri (resim gönder, TTS ile sesli yanıtlar al).
+* Metin çıktısını gerçek zamanlı olarak yayınlayın.
+* Metin dosyalarından parametre ön ayarlarını yükleyin.
+* Büyük modelleri 8 bit modunda yükleyin ([buraya bakın](https://github.com/oobabooga/text-generation-webui/issues/147#issuecomment-1456040134), [burası](https://github.com/oobabooga/text-generation-webui/issues/20#issuecomment-1411650652) ve [burası](https://www.reddit.com/r/PygmalionAI/comments/1115gom/running_pygmalion_6b_with_8gb_of_vram/) Windows kullanıyorsanız).
+* Büyük modelleri GPU'larınız, CPU'nuz ve diskiniz arasında bölün.
+* İşlemci modu.
 * [FlexGen offload](https://github.com/oobabooga/text-generation-webui/wiki/FlexGen).
 * [DeepSpeed ZeRO-3 offload](https://github.com/oobabooga/text-generation-webui/wiki/DeepSpeed).
-* Get responses via API, [with](https://github.com/oobabooga/text-generation-webui/blob/main/api-example-streaming.py) or [without](https://github.com/oobabooga/text-generation-webui/blob/main/api-example.py) streaming.
-* [Supports the RWKV model](https://github.com/oobabooga/text-generation-webui/wiki/RWKV-model).
-* Supports softprompts.
-* [Supports extensions](https://github.com/oobabooga/text-generation-webui/wiki/Extensions).
-* [Works on Google Colab](https://github.com/oobabooga/text-generation-webui/wiki/Running-on-Colab).
+* API aracılığıyla yanıtları alın, [with](https://github.com/oobabooga/text-generation-webui/blob/main/api-example-streaming.py) or [without](https://github.com/oobabooga/text-generation-webui/blob/main/api-example.py) streaming.
+* [RWKV modelini destekler](https://github.com/oobabooga/text-generation-webui/wiki/RWKV-model).
+* Yazılım istemlerini destekler.
+* [Suzantıları destekler](https://github.com/oobabooga/text-generation-webui/wiki/Extensions).
+* [Google Colab'da çalışır](https://github.com/oobabooga/text-generation-webui/wiki/Running-on-Colab).
 
-## Installation option 1: conda
+## Kurulum seçeneği 1: conda
 
-Open a terminal and copy and paste these commands one at a time ([install conda](https://docs.conda.io/en/latest/miniconda.html) first if you don't have it already):
-
-```
-conda create -n textgen
-conda activate textgen
-conda install torchvision torchaudio pytorch-cuda=11.7 git -c pytorch -c nvidia
-git clone https://github.com/oobabooga/text-generation-webui
-cd text-generation-webui
-pip install -r requirements.txt
-```
-
-The third line assumes that you have an NVIDIA GPU. 
-
-* If you have an AMD GPU, replace the third command with this one:
+Bir terminal açın ve bu komutları birer birer kopyalayıp yapıştırın (zaten yoksa önce [conda'yı yükleyin](https://docs.conda.io/en/latest/miniconda.html)):
 
 ```
-pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/rocm5.2
+conda oluştur -n textgen
+conda textgen'i etkinleştir
+conda kurulum torchvision torchaudio pytorch-cuda=11.7 git -c pytorch -c nvidia
+git klonu https://github.com/oobabooga/text-generation-webui
+cd metin oluşturma-webui
+pip kurulumu -r gereksinimleri.txt
 ```
-  	  
-* If you are running in CPU mode, replace the third command with this one:
+
+Üçüncü satır, bir NVIDIA GPU'nuz olduğunu varsayar.
+
+* Bir AMD GPU'nuz varsa, üçüncü komutu bununla değiştirin:
 
 ```
-conda install pytorch torchvision torchaudio git -c pytorch
+pip3 meşaleyi kurun torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/rocm5.2
+```
+  
+* CPU modunda çalışıyorsanız, üçüncü komutu bununla değiştirin:
+
+```
+conda kurulum pytorch torchvision torchaudio git -c pytorch
 ```
 
-## Installation option 2: one-click installers
+## Kurulum seçeneği 2: tek tıkla yükleyiciler
 
 [oobabooga-windows.zip](https://github.com/oobabooga/text-generation-webui/releases/download/installers/oobabooga-windows.zip)
 
 [oobabooga-linux.zip](https://github.com/oobabooga/text-generation-webui/releases/download/installers/oobabooga-linux.zip)
 
-Just download the zip above, extract it, and double click on "install". The web UI and all its dependencies will be installed in the same folder.
+Sadece yukarıdaki zip dosyasını indirin, ayıklayın ve "yükle" ye çift tıklayın. Web kullanıcı arayüzü ve tüm bağımlılıkları aynı klasöre kurulacaktır.
 
-* To download a model, double click on "download-model"
-* To start the web UI, double click on "start-webui" 
+* Bir modeli indirmek için "download-model" üzerine çift tıklayın.
+* Web kullanıcı arayüzünü başlatmak için "start-webui" üzerine çift tıklayın
 
-## Downloading models
+## Modelleri indirme
 
-Models should be placed under `models/model-name`. For instance, `models/gpt-j-6B` for [GPT-J 6B](https://huggingface.co/EleutherAI/gpt-j-6B/tree/main).
+Modeller, `models/model-name` altına yerleştirilmelidir. Örneğin, [GPT-J 6B](https://huggingface.co/EleutherAI/gpt-j-6B/tree/main) için "models/gpt-j-6B".
 
 #### Hugging Face
 
-[Hugging Face](https://huggingface.co/models?pipeline_tag=text-generation&sort=downloads) is the main place to download models. These are some noteworthy examples:
+[Hugging Face](https://huggingface.co/models?pipeline_tag=text-generation&sort=downloads), modelleri indirmek için ana yerdir. Bunlar bazı dikkate değer örnekler:
+
 
 * [GPT-J 6B](https://huggingface.co/EleutherAI/gpt-j-6B/tree/main)
 * [GPT-Neo](https://huggingface.co/models?pipeline_tag=text-generation&sort=downloads&search=eleutherai+%2F+gpt-neo)
@@ -86,109 +87,109 @@ Models should be placed under `models/model-name`. For instance, `models/gpt-j-6
 * [\*-Erebus](https://huggingface.co/models?search=erebus) (NSFW)
 * [Pygmalion](https://huggingface.co/models?search=pygmalion) (NSFW)
 
-You can automatically download a model from HF using the script `download-model.py`:
+`download-model.py` komut dosyasını kullanarak HF'den otomatik olarak bir model indirebilirsiniz:
 
-    python download-model.py organization/model
+    python download-model.py organizasyonu/modeli
 
-For instance:
+Örneğin:
 
-    python download-model.py facebook/opt-1.3b
+    piton indir-model.py facebook/opt-1.3b
 
-If you want to download a model manually, note that all you need are the json, txt, and pytorch\*.bin (or model*.safetensors) files. The remaining files are not necessary.
+Bir modeli manuel olarak indirmek istiyorsanız, ihtiyacınız olan tek şeyin json, txt ve pytorch\*.bin (veya model*.safetensors) dosyaları olduğunu unutmayın. Kalan dosyalar gerekli değildir.
 
 #### GPT-4chan
 
-[GPT-4chan](https://huggingface.co/ykilcher/gpt-4chan) has been shut down from Hugging Face, so you need to download it elsewhere. You have two options:
+[GPT-4chan](https://huggingface.co/ykilcher/gpt-4chan) Hugging Face'ten kapatıldı, bu yüzden başka bir yerden indirmeniz gerekiyor. İki seçeneğiniz var:
 
 * Torrent: [16-bit](https://archive.org/details/gpt4chan_model_float16) / [32-bit](https://archive.org/details/gpt4chan_model)
-* Direct download: [16-bit](https://theswissbay.ch/pdf/_notpdf_/gpt4chan_model_float16/) / [32-bit](https://theswissbay.ch/pdf/_notpdf_/gpt4chan_model/)
+* Direkt İndirme: [16-bit](https://theswissbay.ch/pdf/_notpdf_/gpt4chan_model_float16/) / [32-bit](https://theswissbay.ch/pdf/_notpdf_/gpt4chan_model/)
 
-The 32-bit version is only relevant if you intend to run the model in CPU mode. Otherwise, you should use the 16-bit version.
+32 bit sürüm, yalnızca modeli CPU modunda çalıştırmayı düşünüyorsanız geçerlidir. Aksi takdirde, 16 bit sürümünü kullanmalısınız.
 
-After downloading the model, follow these steps:
+Modeli indirdikten sonra şu adımları izleyin:
 
-1. Place the files under `models/gpt4chan_model_float16` or `models/gpt4chan_model`.
-2. Place GPT-J 6B's config.json file in that same folder: [config.json](https://huggingface.co/EleutherAI/gpt-j-6B/raw/main/config.json).
-3. Download GPT-J 6B's tokenizer files (they will be automatically detected when you attempt to load GPT-4chan):
+1. Dosyaları "models/gpt4chan_model_float16" veya "models/gpt4chan_model" altına yerleştirin.
+2. GPT-J 6B'nin config.json dosyasını aynı klasöre yerleştirin: [config.json](https://huggingface.co/EleutherAI/gpt-j-6B/raw/main/config.json).
+3. GPT-J 6B'nin belirteç dosyalarını indirin (GPT-4chan'ı yüklemeye çalıştığınızda bunlar otomatik olarak algılanacaktır):
 
 ```
 python download-model.py EleutherAI/gpt-j-6B --text-only
 ```
 
-## Starting the web UI
+## Web kullanıcı arayüzünü başlatma
 
-    conda activate textgen
-    python server.py
+    conda textgen'i etkinleştir
+    piton sunucusu.py
 
-Then browse to 
+Ardından göz atın
 
 `http://localhost:7860/?__theme=dark`
 
 
 
-Optionally, you can use the following command-line flags:
+İsteğe bağlı olarak, aşağıdaki komut satırı işaretlerini kullanabilirsiniz:
 
-| Flag        | Description |
-|-------------|-------------|
-| `-h`, `--help`  | show this help message and exit |
-| `--model MODEL`    | Name of the model to load by default. |
-| `--notebook`  | Launch the web UI in notebook mode, where the output is written to the same text box as the input. |
-| `--chat`      | Launch the web UI in chat mode.|
-| `--cai-chat`  | Launch the web UI in chat mode with a style similar to Character.AI's. If the file `img_bot.png` or `img_bot.jpg` exists in the same folder as server.py, this image will be used as the bot's profile picture. Similarly, `img_me.png` or `img_me.jpg` will be used as your profile picture. |
-| `--cpu`       | Use the CPU to generate text.|
-| `--load-in-8bit`  | Load the model with 8-bit precision.|
-| `--bf16`  | Load the model with bfloat16 precision. Requires NVIDIA Ampere GPU. |
-| `--auto-devices` | Automatically split the model across the available GPU(s) and CPU.|
-| `--disk` | If the model is too large for your GPU(s) and CPU combined, send the remaining layers to the disk. |
-| `--disk-cache-dir DISK_CACHE_DIR` | Directory to save the disk cache to. Defaults to `cache/`. |
-|  `--gpu-memory GPU_MEMORY [GPU_MEMORY ...]` |  Maxmimum GPU memory in GiB to be allocated per GPU. Example: `--gpu-memory 10` for a single GPU, `--gpu-memory 10 5` for two GPUs. |
-| `--cpu-memory CPU_MEMORY`    | Maximum CPU memory in GiB to allocate for offloaded weights. Must be an integer number. Defaults to 99.|
-| `--flexgen`                   |         Enable the use of FlexGen offloading. |
-|  `--percent PERCENT [PERCENT ...]`    |  FlexGen: allocation percentages. Must be 6 numbers separated by spaces (default: 0, 100, 100, 0, 100, 0). |
-|  `--compress-weight`                  |  FlexGen: Whether to compress weight (default: False).|
-|  `--pin-weight [PIN_WEIGHT]`          |       FlexGen: whether to pin weights (setting this to False reduces CPU memory by 20%). |
-| `--deepspeed`    | Enable the use of DeepSpeed ZeRO-3 for inference via the Transformers integration. |
-| `--nvme-offload-dir NVME_OFFLOAD_DIR`    | DeepSpeed: Directory to use for ZeRO-3 NVME offloading. |
-| `--local_rank LOCAL_RANK`    | DeepSpeed: Optional argument for distributed setups. |
-|  `--rwkv-strategy RWKV_STRATEGY`         |    RWKV: The strategy to use while loading the model. Examples: "cpu fp32", "cuda fp16", "cuda fp16i8". |
-|  `--rwkv-cuda-on`                        |   RWKV: Compile the CUDA kernel for better performance. |
-| `--no-stream`   | Don't stream the text output in real time. This improves the text generation performance.|
-| `--settings SETTINGS_FILE` | Load the default interface settings from this json file. See `settings-template.json` for an example. If you create a file called `settings.json`, this file will be loaded by default without the need to use the `--settings` flag.|
-|  `--extensions EXTENSIONS [EXTENSIONS ...]` |  The list of extensions to load. If you want to load more than one extension, write the names separated by spaces. |
-| `--listen`   | Make the web UI reachable from your local network.|
-|  `--listen-port LISTEN_PORT` | The listening port that the server will use. |
-| `--share`   | Create a public URL. This is useful for running the web UI on Google Colab or similar. |
-| `--verbose`   | Print the prompts to the terminal. |
+| Bayrak | Açıklama |
+|------------|-------------|
+| "-h", "--yardım" | bu yardım mesajını göster ve çık |
+| `--model MODEL` | Varsayılan olarak yüklenecek modelin adı. |
+| `--defter` | Web kullanıcı arayüzünü, çıktının girişle aynı metin kutusuna yazıldığı not defteri modunda başlatın. |
+| `--sohbet` | Web kullanıcı arayüzünü sohbet modunda başlatın.|
+| `--cai-sohbet` | Web kullanıcı arayüzünü, Character.AI'ye benzer bir stille sohbet modunda başlatın. `img_bot.png` veya `img_bot.jpg` dosyası server.py ile aynı klasörde bulunuyorsa, bu resim botun profil resmi olarak kullanılacaktır. Benzer şekilde, profil resminiz olarak `img_me.png` veya `img_me.jpg` kullanılacaktır. |
+| --işlemci' | Metin oluşturmak için CPU'yu kullanın.|
+| `--8bitlik yükleme` | Modeli 8 bit hassasiyetle yükleyin.|
+| --bf16' | Modeli bfloat16 hassasiyetiyle yükleyin. NVIDIA Ampere GPU gerektirir. |
+| `--oto-cihazlar` | Modeli otomatik olarak mevcut GPU(lar) ve CPU'ya bölün.|
+| `-disk` | Model, GPU'larınız ve CPU'nuz için çok büyükse, kalan katmanları diske gönderin. |
+| `--disk-cache-dir DISK_CACHE_DIR` | Disk önbelleğinin kaydedileceği dizin. Varsayılanlar "cache/" şeklindedir. |
+| `--gpu-bellek GPU_MEMORY [GPU_MEMORY ...]` | GiB'de GPU başına ayrılacak maksimum GPU belleği. Örnek: Tek bir GPU için "--gpu-memory 10", iki GPU için "--gpu-memory 10 5". |
+| `--cpu-bellek CPU_MEMORY` | Yükü boşaltılan ağırlıklar için tahsis edilecek GiB'deki maksimum CPU belleği. Tam sayı olmalıdır. Varsayılanlar 99'dur.|
+| `--flexgen` | FlexGen boşaltma kullanımını etkinleştirin. |
+| `--yüzde YÜZDE [YÜZDE ...]` | FlexGen: ayırma yüzdeleri. Boşluklarla ayrılmış 6 rakam olmalıdır (varsayılan: 0, 100, 100, 0, 100, 0). |
+| `--sıkıştır-ağırlık` | FlexGen: Ağırlığın sıkıştırılıp sıkıştırılmayacağı (varsayılan: Yanlış).|
+| `--iğne ağırlığı [PIN_WEIGHT]` | FlexGen: ağırlıkların sabitlenip sabitlenmeyeceği (bunun Yanlış olarak ayarlanması CPU belleğini %20 azaltır). |
+| `--deepspeed` | Transformers entegrasyonu aracılığıyla çıkarım için DeepSpeed ​​ZeRO-3 kullanımını etkinleştirin. |
+| `--nvme-offload-dir NVME_OFFLOAD_DIR` | DeepSpeed: ZeRO-3 NVME boşaltması için kullanılacak dizin. |
+| `--local_rank LOCAL_RANK` | DeepSpeed: Dağıtılmış kurulumlar için isteğe bağlı bağımsız değişken. |
+| `--rwkv-stratejisi RWKV_STRATEGY` | RWKV: Modeli yüklerken kullanılacak strateji. Örnekler: "işlemci fp32", "cuda fp16", "cuda fp16i8". |
+| --rwkv-cuda-on' | RWKV: Daha iyi performans için CUDA çekirdeğini derleyin. |
+| `--akış yok` | Metin çıktısını gerçek zamanlı olarak yayınlamayın. Bu, metin oluşturma performansını artırır.|
+| `--ayarlar SETTINGS_FILE` | Bu json dosyasından varsayılan arayüz ayarlarını yükleyin. Örnek için "settings-template.json"a bakın. `settings.json` adlı bir dosya oluşturursanız, bu dosya `--settings` bayrağını kullanmaya gerek kalmadan varsayılan olarak yüklenir.|
+| `--uzantılar UZANTILAR [UZANTILAR ...]` | Yüklenecek uzantıların listesi. Birden fazla uzantı yüklemek istiyorsanız, adları boşluklarla ayırarak yazın. |
+| `--dinle` | Web kullanıcı arabiriminin yerel ağınızdan erişilebilir olmasını sağlayın.|
+| `--listen-port LISTEN_PORT` | Sunucunun kullanacağı dinleme bağlantı noktası. |
+| `--paylaş` | Herkese açık bir URL oluşturun. Bu, web kullanıcı arayüzünü Google Colab veya benzeri bir yerde çalıştırmak için kullanışlıdır. |
+| `--ayrıntılı` | Bilgi istemlerini terminale yazdırın. |
 
-Out of memory errors? [Check this guide](https://github.com/oobabooga/text-generation-webui/wiki/Low-VRAM-guide).
+Bellek yetersiz hataları? [Bu kılavuzu kontrol edin](https://github.com/oobabooga/text-generation-webui/wiki/Low-VRAM-guide).
 
-## Presets
+## Ön ayarlar
 
-Inference settings presets can be created under `presets/` as text files. These files are detected automatically at startup.
+Çıkarım ayarları hazır ayarları, "ön ayarlar/" altında metin dosyaları olarak oluşturulabilir. Bu dosyalar başlangıçta otomatik olarak algılanır.
 
-By default, 10 presets by NovelAI and KoboldAI are included. These were selected out of a sample of 43 presets after applying a K-Means clustering algorithm and selecting the elements closest to the average of each cluster.
+Varsayılan olarak, NovelAI ve KoboldAI tarafından sağlanan 10 ön ayar dahildir. Bunlar, bir K-Means kümeleme algoritması uygulandıktan ve her kümenin ortalamasına en yakın öğeler seçildikten sonra 43 ön ayar örneğinden seçildi.
 
-## System requirements
+## Sistem gereksinimleri
 
-Check the [wiki](https://github.com/oobabooga/text-generation-webui/wiki/System-requirements) for some examples of VRAM and RAM usage in both GPU and CPU mode.
+Hem GPU hem de CPU modunda VRAM ve RAM kullanımına ilişkin bazı örnekler için [wiki](https://github.com/oobabooga/text-generation-webui/wiki/System-requirements) sayfasına bakın.
 
-## Contributing
+## Katkı
 
-Pull requests, suggestions, and issue reports are welcome.
+Çekme istekleri, öneriler ve sorun raporları memnuniyetle karşılanır.
 
-Before reporting a bug, make sure that you have created a conda environment and installed the dependencies exactly as in the *Installation* section above.
+Bir hatayı bildirmeden önce, bir conda ortamı oluşturduğunuzdan ve bağımlılıkları tam olarak yukarıdaki *Kurulum* bölümündeki gibi kurduğunuzdan emin olun.
 
-These issues are known:
+Bu sorunlar bilinmektedir:
 
-* 8-bit doesn't work properly on Windows or older GPUs.
-* DeepSpeed doesn't work properly on Windows.
+* 8-bit, Windows veya daha eski GPU'larda düzgün çalışmaz.
+* DeepSpeed, Windows'ta düzgün çalışmıyor.
 
-For these two, please try commenting on an existing issue instead of creating a new one.
+Bu ikisi için lütfen yeni bir sorun oluşturmak yerine mevcut bir sorun hakkında yorum yapmayı deneyin.
 
-## Credits
+## Kredi
 
-- NovelAI and KoboldAI presets: https://github.com/KoboldAI/KoboldAI-Client/wiki/Settings-Presets
-- Pygmalion preset, code for early stopping in chat mode, code for some of the sliders, --chat mode colors: https://github.com/PygmalionAI/gradio-ui/
-- Verbose preset: Anonymous 4chan user.
-- Instruct-Joi preset: https://huggingface.co/Rallio67/joi_12B_instruct_alpha
-- Gradio dropdown menu refresh button: https://github.com/AUTOMATIC1111/stable-diffusion-webui
+- NovelAI ve KoboldAI ön ayarları: https://github.com/KoboldAI/KoboldAI-Client/wiki/Settings-Presets
+- Pygmalion ön ayarı, sohbet modunda erken durma kodu, bazı kaydırıcılar için kod, --chat modu renkleri: https://github.com/PygmalionAI/gradio-ui/
+- Ayrıntılı ön ayar: Anonim 4chan kullanıcısı.
+- Instruct-Joi ön ayarı: https://huggingface.co/Rallio67/joi_12B_instruct_alpha
+- Gradio açılır menü yenileme düğmesi: https://github.com/AUTOMATIC1111/stable-diffusion-webui
