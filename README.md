@@ -37,12 +37,12 @@ Amacı, [AUTOMATIC1111/stable-diffusion-webui](https://github.com/AUTOMATIC1111/
 Bir terminal açın ve bu komutları birer birer kopyalayıp yapıştırın (zaten yoksa önce [conda'yı yükleyin](https://docs.conda.io/en/latest/miniconda.html)):
 
 ```
-conda oluştur -n textgen
-conda textgen'i etkinleştir
-conda kurulum torchvision torchaudio pytorch-cuda=11.7 git -c pytorch -c nvidia
-git klonu https://github.com/oobabooga/text-generation-webui
-cd metin oluşturma-webui
-pip kurulumu -r gereksinimleri.txt
+create conda -n textgen
+enable conda textgen
+conda install torchvision torchaudio pytorch-cuda=11.7 git -c pytorch -c nvidia
+git clone https://github.com/oobabooga/text-generation-webui
+cd text creation-webui
+pip settings -r requirements.txt
 ```
 
 Üçüncü satır, bir NVIDIA GPU'nuz olduğunu varsayar.
@@ -50,13 +50,13 @@ pip kurulumu -r gereksinimleri.txt
 * Bir AMD GPU'nuz varsa, üçüncü komutu bununla değiştirin:
 
 ```
-pip3 meşaleyi kurun torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/rocm5.2
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/rocm5.2
 ```
   
 * CPU modunda çalışıyorsanız, üçüncü komutu bununla değiştirin:
 
 ```
-conda kurulum pytorch torchvision torchaudio git -c pytorch
+conda install pytorch torchvision torchaudio git -c pytorch
 ```
 
 ## Kurulum seçeneği 2: tek tıkla yükleyiciler
